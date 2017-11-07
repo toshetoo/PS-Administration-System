@@ -2,6 +2,21 @@ let React = require('react');
 
 class About extends React.Component {
 
+      static willTransitionTo(transition, params, query, callback) {
+          if(!confirm('Are you sure you want to read this page?')) {
+              transition.abort();
+          } else {
+              callback();
+          }
+      }
+
+    static willTransitionFrom(transition, component) {
+        if(!confirm('Are you sure you want to leave this page?')) {
+            transition.abort();
+        }
+    }
+
+
     render() {
         return (
             <div>
