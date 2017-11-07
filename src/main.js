@@ -1,4 +1,7 @@
-$ = require('jquery');
-var App = console.log('Hello');
+let React = require('react');
+let Router = require('react-router');
+let routes = require('./routes');
 
-module.exports = App;
+Router.run(routes, function (Handler) {
+    React.render(<Handler/>, document.getElementById('app'))
+});

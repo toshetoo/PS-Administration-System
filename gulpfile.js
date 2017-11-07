@@ -1,15 +1,15 @@
-"use strict";
+let gulp = require('gulp');
+let connect = require('gulp-connect'); //Runs a local dev server
+let open = require('gulp-open'); //Open a URL in a web browser
+let browserify = require('browserify'); // Bundles JS
+let reactify = require('reactify');  // Transforms React JSX to JS
+let source = require('vinyl-source-stream'); // Use conventional text streams with Gulp
+let concat = require('gulp-concat'); //Concatenates files
+let lint = require('gulp-eslint'); //Lint JS files, including JSX
+let babel = require("gulp-babel");
 
-var gulp = require('gulp');
-var connect = require('gulp-connect'); //Runs a local dev server
-var open = require('gulp-open'); //Open a URL in a web browser
-var browserify = require('browserify'); // Bundles JS
-var reactify = require('reactify');  // Transforms React JSX to JS
-var source = require('vinyl-source-stream'); // Use conventional text streams with Gulp
-var concat = require('gulp-concat'); //Concatenates files
-var lint = require('gulp-eslint'); //Lint JS files, including JSX
 
-var config = {
+let config = {
     port: 9005,
     devBaseUrl: 'http://localhost',
     paths: {
@@ -19,6 +19,7 @@ var config = {
             'node_modules/bootstrap/dist/css/bootstrap.min.css',
             'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
         ],
+        images: './src/assets/images/*',
         dist: './dist',
         mainJs: './src/main.js'
     }
@@ -46,6 +47,14 @@ gulp.task('html', function () {
 });
 
 gulp.task('js', function () {
+    // gulp.src(config.paths.mainJs)
+    //     .pipe(babel())
+    //     .bundle()
+    //     .on('error', console.error.bind(console))
+    //     .pipe(source('bundle.js'))
+    //     .pipe(gulp.dest(config.paths.dist + '/scripts'))
+    //     .pipe(connect.reload());
+
     browserify(config.paths.mainJs)
         .transform(reactify)
         .bundle()
@@ -61,10 +70,19 @@ gulp.task('css', function () {
         .pipe(gulp.dest(config.paths.dist + '/css'));
 });
 
+gulp.task('images', function () {
+    gulp.src(config.paths.images)
+        .pipe(gulp.dest(config.paths.dist + '/images'))
+        .pipe(connect.reload());
+
+    gulp.src("./src/favicon.ico")
+        .pipe(gulp.dest(config.paths.dist));
+});
+
 gulp.task('lint', function () {
-    return gulp.src(config.paths.js)
-        .pipe(lint({config: 'eslint.config.json'}))
-        .pipe(lint.format());
+    // return gulp.src(config.paths.js)
+    //     .pipe(lint({config: 'eslint.config.json'}))
+    //     .pipe(lint.format());
 });
 
 gulp.task('watch', function () {
@@ -72,4 +90,4 @@ gulp.task('watch', function () {
     gulp.watch(config.paths.js, ['js', 'lint']);
 });
 
-gulp.task('default', ['html', 'js', 'css', 'lint', 'open', 'watch']);
+gulp.task('default', ['html', 'js', 'css', 'images', 'lint', 'open', 'watch']);
