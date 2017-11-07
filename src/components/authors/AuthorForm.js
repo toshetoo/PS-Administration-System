@@ -5,7 +5,7 @@ class AuthorForm extends React.Component {
 
     render() {
         return (
-            <form>
+            <form onSubmit={this.props.onSave}>
                 <h1>Manage Author</h1>
                 <TextInput label='First Name'
                        name='firstName'

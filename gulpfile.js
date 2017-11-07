@@ -6,7 +6,6 @@ let reactify = require('reactify');  // Transforms React JSX to JS
 let source = require('vinyl-source-stream'); // Use conventional text streams with Gulp
 let concat = require('gulp-concat'); //Concatenates files
 let lint = require('gulp-eslint'); //Lint JS files, including JSX
-let babel = require("gulp-babel");
 
 
 let config = {
@@ -17,7 +16,8 @@ let config = {
         js: './src/**/*.js',
         css: [
             'node_modules/bootstrap/dist/css/bootstrap.min.css',
-            'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
+            'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
+            'node_modules/toastr/toastr.css'
         ],
         images: './src/assets/images/*',
         dist: './dist',
