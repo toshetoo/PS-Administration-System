@@ -1,4 +1,6 @@
 let React = require('react');
+let Router = require('react-router');
+let Link = Router.Link;
 
 class AuthorList extends React.Component {
 
@@ -14,7 +16,7 @@ class AuthorList extends React.Component {
                     {this.props.authors.map(author => {
                         return <tr key={author.id}>
                             <td>{author.id}</td>
-                            <td><a href={'/authors/' + author.id}>{author.firstName} {author.lastName}</a></td>
+                            <td><Link to='editAuthor' params={{id: author.id}} />{author.name}</td>
                         </tr>
                     })}
                     </tbody>

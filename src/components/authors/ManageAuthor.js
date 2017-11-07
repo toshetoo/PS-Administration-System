@@ -23,6 +23,15 @@ class ManageAuthor extends React.Component {
         };
     }
 
+    componentWillMount() {
+        let authorID = this.props.params.id;
+        if(authorID) {
+            this.setState({
+                author: AuthorAPI.generateId(authorID)
+            });
+        }
+    }
+
     setAuthorState(event) {
         this.setState({
             dirty: true
