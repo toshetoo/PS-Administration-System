@@ -1,25 +1,25 @@
-let Dispatcher = require('../dispatcher/appDispatcher');
-let AuthorAPI = require('../api/authorAPI');
-let ActionTypes = require('../constants/actionTypes');
+import Dispatcher from '../dispatcher/appDispatcher';
+import AuthorAPI from '../api/authorAPI';
+import ActionTypes from '../constants/actionTypes';
 
-let AuthorActions = {
-    createAuthor(author) {
+export default class AuthorActions {
+    static createAuthor(author) {
         let newAuthor = AuthorAPI.saveAuthor(author);
         Dispatcher.dispatch({
             actionType: ActionTypes.CREATE_AUTHOR,
             author: newAuthor
         });
-    },
+    }
 
-    updateAuthor(author) {
+    static updateAuthor(author) {
         let updatedAuthor = AuthorAPI.saveAuthor(author);
         Dispatcher.dispatch({
             actionType: ActionTypes.UPDATE_AUTHOR,
             author: updatedAuthor
         });
-    },
+    }
 
-    deleteAuthor(id) {
+    static deleteAuthor(id) {
         AuthorAPI.deleteAuthor(id);
         Dispatcher.dispatch({
             actionType: ActionTypes.DELETE_AUTHOR,
@@ -27,6 +27,4 @@ let AuthorActions = {
         })
     }
 
-};
-
-module.exports = AuthorActions;
+}

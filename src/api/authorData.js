@@ -1,4 +1,4 @@
-module.exports = {
+let data = {
     authors:
         [
             {
@@ -18,3 +18,5 @@ module.exports = {
             }
         ]
 };
+
+export default data;

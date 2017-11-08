@@ -1,11 +1,10 @@
-let React = require('react');
-let Router = require('react-router');
+import React from 'react';
+import Router from 'react-router';
 let Link = Router.Link;
-let AuthorActions = require('../../actions/authorActions');
-let AuthorStore = require('../../stores/AuthorStore');
-let AuthorList = require('./AuthorList');
+import AuthorStore from '../../stores/AuthorStore';
+import AuthorList from './AuthorList';
 
-class Author extends React.Component {
+export default class Author extends React.Component {
 
     constructor(props) {
         super(props);
@@ -15,11 +14,11 @@ class Author extends React.Component {
     }
 
     componentWillMount() {
-        AuthorStore.addChangeListener(this.onChange);
+        AuthorStore.addChangeListener(this.onChange.bind(this));
     }
 
     componentWillUnmount() {
-        AuthorStore.removeChangeListener(this.onChange);
+        AuthorStore.removeChangeListener(this.onChange.bind(this));
     }
 
     onChange() {
@@ -38,5 +37,3 @@ class Author extends React.Component {
         );
     }
 }
-
-module.exports = Author;

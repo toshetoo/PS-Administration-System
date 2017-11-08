@@ -1,11 +1,11 @@
-let React = require('react');
-let Router = require('react-router');
-let AuthorActions = require('../../actions/authorActions');
-let AuthorStore = require('../../stores/AuthorStore');
-let AuthorForm = require('./AuthorForm');
-let toastr = require('toastr');
+import React from 'react';
+import Router from 'react-router';
+import AuthorActions from '../../actions/authorActions';
+import AuthorStore from '../../stores/AuthorStore';
+import AuthorForm from './AuthorForm';
+import toastr from 'toastr';
 
-class ManageAuthor extends React.Component {
+export default class ManageAuthor extends React.Component {
 
     static willTransitionFrom(transition, component) {
         if (component.state.dirty && !confirm('Leave without saving?')) {
@@ -96,5 +96,3 @@ class ManageAuthor extends React.Component {
         );
     }
 }
-
-module.exports = ManageAuthor;

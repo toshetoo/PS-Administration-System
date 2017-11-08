@@ -1,10 +1,10 @@
-let React = require('react');
-let Router = require('react-router');
-let routes = require('./routes');
-let InitializeActions = require('./actions/initializeActions');
+import React from 'react';
+import Router from 'react-router';
+import routes from './routes';
+import InitializeActions from './actions/initializeActions';
 
 InitializeActions.initApp();
 
-Router.run(routes, Router.HistoryLocation, function (Handler) {
+Router.run(routes, Router.HistoryLocation, (Handler) => {
     React.render(<Handler/>, document.getElementById('app'))
 });

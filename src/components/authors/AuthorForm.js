@@ -1,7 +1,7 @@
-let React = require('react');
-let TextInput = require('../common/TextInput');
+import React from 'react';
+import TextInput from '../common/TextInput';
 
-class AuthorForm extends React.Component {
+export default class AuthorForm extends React.Component {
 
     render() {
         return (
@@ -25,5 +25,3 @@ class AuthorForm extends React.Component {
         );
     }
 }
-
-module.exports = AuthorForm;

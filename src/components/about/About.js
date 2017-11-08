@@ -1,6 +1,6 @@
-let React = require('react');
+import React from 'react';
 
-class About extends React.Component {
+export default class About extends React.Component {
 
       static willTransitionTo(transition, params, query, callback) {
           if(!confirm('Are you sure you want to read this page?')) {
@@ -37,5 +37,3 @@ class About extends React.Component {
         );
     }
 }
-
-module.exports = About;

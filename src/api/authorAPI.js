@@ -1,8 +1,8 @@
 //This file is mocking a web API by hitting hard coded data.
-let authors = require('./authorData').authors;
-let _ = require('lodash');
+import data from './authorData';
+let authors = data.authors;
 
-class AuthorApi {
+export default class AuthorApi {
 
     //This would be performed on the server in a real app. Just stubbing in.
     static generateId(author) {
@@ -18,7 +18,7 @@ class AuthorApi {
     };
 
     static getAuthorById(id) {
-        let author = _.find(authors, {id: id});
+        let author = authors.filter(author => author.id === id);
         return AuthorApi.clone(author);
     };
 
@@ -27,8 +27,10 @@ class AuthorApi {
         console.log('Pretend this just saved the author to the DB via AJAX call...');
 
         if (author.id) {
-            let existingAuthorIndex = _.indexOf(authors, _.find(authors, {id: author.id}));
-            authors.splice(existingAuthorIndex, 1, author);
+            let existingIndex = authors.map(auth => {
+                return auth.id
+            }).indexOf(author.id);
+            authors.splice(existingIndex, 1, author);
         } else {
             //Just simulating creation here.
             //The server would generate ids for new authors in a real app.
@@ -42,8 +44,9 @@ class AuthorApi {
 
     static deleteAuthor(id) {
         console.log('Pretend this just deleted the author from the DB via an AJAX call...');
-        _.remove(authors, { id: id});
+        let existingIndex = authors.map(author => {
+            return author.id
+        }).indexOf(id);
+        authors.splice(existingIndex, 1);
     };
 }
-
-module.exports = AuthorApi;

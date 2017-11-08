@@ -1,8 +1,8 @@
-let Dispatcher = require('../dispatcher/appDispatcher');
-let AuthorAPI = require('../api/authorAPI');
-let ActionTypes = require('../constants/actionTypes');
+import Dispatcher from '../dispatcher/appDispatcher';
+import AuthorAPI from '../api/authorAPI';
+import ActionTypes from '../constants/actionTypes';
 
-class InitializeActions {
+export default class InitializeActions {
 
     static initApp() {
         Dispatcher.dispatch({
@@ -13,5 +13,3 @@ class InitializeActions {
         });
     }
 }
-
-module.exports = InitializeActions;

@@ -1,8 +1,8 @@
-let React = require('react');
-let Router = require('react-router');
+import React from 'react';
+import Router from 'react-router';
 let Link = Router.Link;
 
-class Header extends React.Component{
+export default class Header extends React.Component{
     render() {
         return (
             <nav className="navbar navbar-default">
@@ -20,5 +20,3 @@ class Header extends React.Component{
         );
     }
 }
-
-module.exports = Header;

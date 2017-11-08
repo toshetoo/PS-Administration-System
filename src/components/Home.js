@@ -1,8 +1,8 @@
-let React = require('react');
-let Router = require('react-router');
+import React from 'react';
+import Router from 'react-router';
 let Link = Router.Link;
 
-class Home extends React.Component {
+export default class Home extends React.Component {
 
     render() {
         return (
@@ -14,5 +14,3 @@ class Home extends React.Component {
         );
     }
 }
-
-module.exports = Home;

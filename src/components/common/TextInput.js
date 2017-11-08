@@ -1,6 +1,6 @@
-let React = require('react');
+import React from 'react';
 
-class TextInput extends React.Component {
+export default class TextInput extends React.Component {
 
     render() {
         let wrapperClass = 'form-group';
@@ -25,6 +25,3 @@ class TextInput extends React.Component {
         );
     }
 }
-
-
-module.exports = TextInput;

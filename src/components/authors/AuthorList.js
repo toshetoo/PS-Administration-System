@@ -1,10 +1,10 @@
-let React = require('react');
-let Router = require('react-router');
+import React from 'react';
+import Router from 'react-router';
 let Link = Router.Link;
-let AuthorActions = require('../../actions/authorActions');
-let toastr = require('toastr');
+import AuthorActions from '../../actions/authorActions';
+import toastr from 'toastr';
 
-class AuthorList extends React.Component {
+export default class AuthorList extends React.Component {
 
     deleteAuthor(id, event) {
         event.preventDefault();
@@ -36,5 +36,3 @@ class AuthorList extends React.Component {
         );
     }
 }
-
-module.exports = AuthorList;

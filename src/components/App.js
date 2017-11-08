@@ -1,9 +1,12 @@
-let React = require('react');
-let Header = require('./common/Header');
-let RouteHandler = require('react-router').RouteHandler;
-$ = require('jquery');
+import React from 'react';
+import Router from 'react-router';
+import Header  from './common/Header';
+import JQuery from 'jquery';
+let $ = JQuery;
+let RouteHandler = Router.RouteHandler;
 
-class App extends React.Component {
+
+export default class App extends React.Component {
     render() {
         return (
             <div>
@@ -15,5 +18,3 @@ class App extends React.Component {
         );
     }
 }
-
-module.exports = App;

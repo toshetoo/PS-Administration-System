@@ -1,28 +1,22 @@
-let Dispatcher = require('../dispatcher/appDispatcher');
-let ActionTypes = require('../constants/actionTypes');
-let EventEmitter = require('events').EventEmitter;
-let assign = require('object-assign');
-let _ = require('lodash');
+import Dispatcher from '../dispatcher/appDispatcher';
+import ActionTypes from '../constants/actionTypes';
+import Events from 'events';
+let EventEmitter = Events.EventEmitter;
 
 const CHANGE_EVENT = 'change';
 let _authors = [];
 
-class AuthorStore {
-
-    static getEmitter() {
-        return new EventEmitter();
-    }
-
+export default class AuthorStore {
     static addChangeListener(callback) {
-        AuthorStore.getEmitter().on(CHANGE_EVENT, callback);
+        AuthorStore.emitter.on(CHANGE_EVENT, callback);
     }
 
     static removeChangeListener(callback) {
-        AuthorStore.getEmitter().removeListener(CHANGE_EVENT, callback);
+        AuthorStore.emitter.removeListener(CHANGE_EVENT, callback);
     }
 
     static emitChange() {
-        AuthorStore.getEmitter().emit(CHANGE_EVENT);
+        AuthorStore.emitter.emit(CHANGE_EVENT);
     }
 
     static getAllAuthors() {
@@ -30,9 +24,11 @@ class AuthorStore {
     }
 
     static getAuthorById(id) {
-        return _.find(_authors, {id: id});
+        return _authors.find(author => author.id === id);
     }
 }
+
+AuthorStore.emitter = new EventEmitter();
 
 Dispatcher.register(function (action) {
     switch (action.actionType) {
@@ -41,15 +37,18 @@ Dispatcher.register(function (action) {
             AuthorStore.emitChange();
             break;
         case ActionTypes.UPDATE_AUTHOR:
-            let existingAuthor = _.find(_authors, {id: action.author.id});
-            let index = _.indexOf(_authors, existingAuthor);
+            let existingAuthor = _authors.find(auth => auth.id === action.author.id);
+            let index =_authors.map(auth => {
+                return auth.id
+            }).indexOf(existingAuthor.id);
             _authors.splice(index, 1, action.author);
             AuthorStore.emitChange();
             break;
         case ActionTypes.DELETE_AUTHOR:
-            _.remove(_authors, function (author) {
-               return action.id === author.id
-            });
+            let existingIndex = _authors.map(author => {
+                return author.id
+            }).indexOf(action.id);
+            _authors.splice(existingIndex, 1);
             AuthorStore.emitChange();
             break;
         case ActionTypes.INITIALIZE:
@@ -58,5 +57,3 @@ Dispatcher.register(function (action) {
             break;
     }
 });
-
-module.exports = AuthorStore;
