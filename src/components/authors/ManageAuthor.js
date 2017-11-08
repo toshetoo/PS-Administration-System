@@ -1,14 +1,14 @@
 let React = require('react');
 let Router = require('react-router');
-let AuthorAPI = require('../../api/authorAPI');
-let AuthorList = require('./AuthorList');
+let AuthorActions = require('../../actions/authorActions');
+let AuthorStore = require('../../stores/AuthorStore');
 let AuthorForm = require('./AuthorForm');
 let toastr = require('toastr');
 
 class ManageAuthor extends React.Component {
 
     static willTransitionFrom(transition, component) {
-        if(component.state.dirty && !confirm('Leave without saving?')) {
+        if (component.state.dirty && !confirm('Leave without saving?')) {
             transition.abort();
         }
     }
@@ -25,9 +25,9 @@ class ManageAuthor extends React.Component {
 
     componentWillMount() {
         let authorID = this.props.params.id;
-        if(authorID) {
+        if (authorID) {
             this.setState({
-                author: AuthorAPI.generateId(authorID)
+                author: AuthorStore.getAuthorById(authorID)
             });
         }
     }
@@ -50,7 +50,12 @@ class ManageAuthor extends React.Component {
             return;
         }
 
-        AuthorAPI.saveAuthor(this.state.author);
+        if (this.state.author.id) {
+            AuthorActions.updateAuthor(this.state.author);
+        } else {
+            AuthorActions.createAuthor(this.state.author);
+        }
+
         toastr.success('Author added successfully!');
         this.setState({
             dirty: false

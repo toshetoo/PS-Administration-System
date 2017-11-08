@@ -1,7 +1,8 @@
 let React = require('react');
 let Router = require('react-router');
 let Link = Router.Link;
-let AuthorAPI = require('../../api/authorAPI');
+let AuthorActions = require('../../actions/authorActions');
+let AuthorStore = require('../../stores/AuthorStore');
 let AuthorList = require('./AuthorList');
 
 class Author extends React.Component {
@@ -9,8 +10,22 @@ class Author extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            authors: AuthorAPI.getAllAuthors()
+            authors: AuthorStore.getAllAuthors()
         };
+    }
+
+    componentWillMount() {
+        AuthorStore.addChangeListener(this.onChange);
+    }
+
+    componentWillUnmount() {
+        AuthorStore.removeChangeListener(this.onChange);
+    }
+
+    onChange() {
+        this.setState({
+            authors: AuthorStore.getAllAuthors()
+        });
     }
 
     render() {
